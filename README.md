@@ -248,30 +248,105 @@ npm run test -- --coverage
 
 ## Déploiement
 
-### Déploiement Vercel (Production)
+### 🚀 Déploiement Rapide (15 minutes)
+
+Pour un déploiement express, suivez notre guide rapide:
 
 ```bash
-# Déploiement automatique via GitHub
-# Push sur branch 'main' déclenche un déploiement
-
-# Ou déploiement manuel
-npm run build
-vercel --prod
+📖 Voir: QUICK_DEPLOY.md
 ```
 
-### Variables d'environnement (Production)
+**Étapes essentielles:**
+1. Créer un projet Supabase
+2. Exécuter les migrations SQL
+3. Déployer sur Vercel avec variables d'environnement
+4. Tester la connexion
 
-Configurez les mêmes variables dans Vercel Dashboard:
-- Settings > Environment Variables
-- Ajoutez toutes les clés de `.env.example`
+### 📚 Déploiement Complet (Production)
 
-### Migrations en production
+Pour un guide détaillé avec toutes les étapes de production:
 
 ```bash
-# Connectez-vous à Supabase Dashboard
-# Database > Migrations
-# Appliquez les migrations manuellement ou via CLI
+📖 Voir: DEPLOYMENT.md
 ```
+
+**Inclut:**
+- Configuration Supabase (Database, Auth, Storage, RLS)
+- Déploiement Vercel avec CI/CD
+- Configuration Stripe (webhooks, produits)
+- Configuration SendGrid (emails)
+- Configuration Google Gemini (AI)
+- Domaine personnalisé et SSL
+- Monitoring et sécurité
+- Estimation des coûts
+- Troubleshooting
+
+### 🔍 Vérification pré-déploiement
+
+Avant de déployer, vérifiez que tout est prêt:
+
+```bash
+# Exécuter le script de vérification
+./scripts/deploy-check.sh
+```
+
+Ce script vérifie:
+- ✅ Version Node.js
+- ✅ Dépendances installées
+- ✅ Variables d'environnement
+- ✅ TypeScript type-check
+- ✅ Linting
+- ✅ Tests
+- ✅ Build production
+- ✅ Fichiers critiques
+- ✅ Git status
+- ✅ Security audit
+
+### 📊 Plateformes Recommandées
+
+| Service | Recommandation | Pourquoi |
+|---------|----------------|----------|
+| **Hosting** | Vercel | Optimal pour Next.js, déploiement automatique |
+| **Database** | Supabase | PostgreSQL managé, Auth intégré, RLS |
+| **Storage** | Supabase Storage | Intégré avec la DB, RGPD-compliant |
+| **Payments** | Stripe | Standard SaaS, webhooks fiables |
+| **Emails** | SendGrid | 100 emails/jour gratuits, bonne délivrabilité |
+| **AI** | Google Gemini | Pay-per-use, pas d'infra requise |
+| **Monitoring** | Sentry | Tracking d'erreurs production |
+
+### 🔐 Variables d'environnement (Production)
+
+Configuration minimale pour Vercel:
+
+```bash
+# Essentielles
+NEXT_PUBLIC_SUPABASE_URL=https://xxxxx.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJ...
+SUPABASE_SERVICE_ROLE_KEY=eyJ...
+NEXTAUTH_URL=https://votre-domaine.com
+NEXTAUTH_SECRET=[générer avec: openssl rand -base64 32]
+NEXT_PUBLIC_APP_URL=https://votre-domaine.com
+```
+
+Voir `.env.example` pour la liste complète (40+ variables).
+
+### 🔄 CI/CD Automatique
+
+Le projet inclut GitHub Actions (`.github/workflows/ci.yml`):
+
+**À chaque Push:**
+- ✅ Lint (ESLint)
+- ✅ Type-check (TypeScript)
+- ✅ Tests (Jest)
+- ✅ Build (Next.js)
+- ✅ Security scan (npm audit, Snyk)
+
+**À chaque PR:**
+- 🔍 Vercel Preview Deployment
+- 🔍 Tests automatiques
+
+**Sur merge main:**
+- 🚀 Déploiement production automatique
 
 ---
 
